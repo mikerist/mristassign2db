@@ -1,4 +1,4 @@
--- ensure we are in the correct database
+-- ensure we are in the correct database 
 USE mristassign2db;
 
 -- load data from loaddatafall2018.txt
