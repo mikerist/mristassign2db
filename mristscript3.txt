@@ -1,3 +1,5 @@
+-- select database
+USE mristassign2db;
 -- Query 1
 SELECT proddescription FROM product;
 -- Query 2

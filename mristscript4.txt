@@ -1,3 +1,5 @@
+-- select database
+USE mristassign2db;
 -- SHOW DATA IN TABLES
 -- Product Table
 SELECT * FROM product;
