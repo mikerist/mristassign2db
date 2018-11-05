@@ -1,0 +1,100 @@
+Warning: Using a password on the command line interface can be insecure.
+ERROR 1451 (23000) at line 24: Cannot delete or update a parent row: a foreign key constraint fails (`mristassign2db`.`customer`, CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`agentid`) REFERENCES `agent` (`agentid`))
+--------------
+SELECT * FROM product
+--------------
+
+productid	proddescription	cost	quantity
+11	Bike	150	200
+12	Socks	2	100
+14	Skateboard	35	89
+66	Elbow pads	14.25	120
+78	Knee Pads	12.15	70
+88	Roller Blades	75	89
+99	Helmet	29	30
+--------------
+SELECT * FROM agent
+--------------
+
+agentid	firstname	lastname	city	compercentage
+11	Regis	Philbin	Boston	33
+12	Rosie	Cox	Ottawa	50
+15	Michael	Rist	Brooks	100
+22	Courtney	Cox	New York	25
+33	David	Letterman	Bedrock	100
+66	Rosie	ODonnell	Ottawa	100
+99	Hugh	Grant	Springfield	16
+--------------
+SELECT * FROM customer
+--------------
+
+customerid	firstname	lastname	city	phonenumber	agentid
+10	Barney	Rubble	Boston	777-1234	11
+12	Monty	Burns	Springfield	789-0000	99
+13	Wonder	Woman	Kypto	888-1234	33
+14	Peter	Griffens	Providence	987-4567	99
+15	Fred	Flintstone	Boston	777-2345	11
+21	Homer	Simpson	Springfield	686-8956	99
+31	Sideshow	Bob	Springfield	686-5555	66
+--------------
+SELECT * FROM purchases
+--------------
+
+productid	customerid	purchasequantity
+12	21	14
+12	31	5
+66	14	19
+66	15	2
+66	21	10
+66	31	5
+78	15	2
+78	31	5
+99	21	20
+99	31	5
+--------------
+CREATE VIEW customerpurchases AS SELECT firstname, lastname, proddescription, purchasequantity, cost, ROUND(purchasequantity*cost, 2) AS 'totalcost' FROM customer, product, purchases WHERE customer.customerid=purchases.customerid AND purchases.productid=product.productid
+--------------
+
+--------------
+SELECT * FROM customerpurchases
+--------------
+
+firstname	lastname	proddescription	purchasequantity	cost	totalcost
+Peter	Griffens	Elbow pads	19	14.25	270.75
+Fred	Flintstone	Elbow pads	2	14.25	28.50
+Fred	Flintstone	Knee Pads	2	12.15	24.30
+Homer	Simpson	Socks	14	2	28.00
+Homer	Simpson	Elbow pads	10	14.25	142.50
+Homer	Simpson	Helmet	20	29	580.00
+Sideshow	Bob	Socks	5	2	10.00
+Sideshow	Bob	Elbow pads	5	14.25	71.25
+Sideshow	Bob	Knee Pads	5	12.15	60.75
+Sideshow	Bob	Helmet	5	29	145.00
+--------------
+SELECT * FROM customerpurchases WHERE totalcost>=100
+--------------
+
+firstname	lastname	proddescription	purchasequantity	cost	totalcost
+Peter	Griffens	Elbow pads	19	14.25	270.75
+Homer	Simpson	Elbow pads	10	14.25	142.50
+Homer	Simpson	Helmet	20	29	580.00
+Sideshow	Bob	Helmet	5	29	145.00
+--------------
+DELETE FROM product WHERE proddescription='Skateboard'
+--------------
+
+--------------
+Select * FROM product
+--------------
+
+productid	proddescription	cost	quantity
+11	Bike	150	200
+12	Socks	2	100
+66	Elbow pads	14.25	120
+78	Knee Pads	12.15	70
+88	Roller Blades	75	89
+99	Helmet	29	30
+--------------
+DELETE FROM agent WHERE city='Springfield'
+--------------
+
