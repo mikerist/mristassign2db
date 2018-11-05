@@ -1,0 +1,23 @@
+-- SHOW DATA IN TABLES
+-- Product Table
+SELECT * FROM product;
+-- Agent Table
+SELECT * FROM agent;
+-- Customer Table
+SELECT * FROM customer;
+-- Purchases Table
+SELECT * FROM purchases;
+
+-- create view
+CREATE VIEW customerpurchases AS SELECT firstname, lastname, proddescription, purchasequantity, cost, ROUND(purchasequantity*cost, 2) AS 'totalcost' FROM customer, product, purchases WHERE customer.customerid=purchases.customerid AND purchases.productid=product.productid;
+-- show view
+SELECT * FROM customerpurchases;
+-- show view for product purchases with a total over 100
+SELECT * FROM customerpurchases WHERE totalcost>=100;
+-- delete the product i created
+DELETE FROM product WHERE proddescription='Skateboard';
+-- the row for 'Skateboards' in the product table was deleted because it is not referenced as a foreign key in any other tables.
+Select * FROM product;
+-- attempt to delete agents who are from Springfield
+DELETE FROM agent WHERE city='Springfield';
+-- the row for agents from 'Springfield' was NOT deleted because it is referenced as a foreign key in other tables.  Therefor the parent row can't be deleted (until the related information is deleted from the other tables).

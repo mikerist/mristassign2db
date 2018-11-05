@@ -1,0 +1,30 @@
+-- Query 1
+SELECT proddescription FROM product;
+-- Query 2
+SELECT distinct(city) FROM customer;
+-- Query 3
+SELECT * FROM agent ORDER BY city;
+-- Query 4
+SELECT firstname, lastname FROM customer WHERE city='Springfield';
+-- Query 5
+SELECT lastname FROM customer WHERE agentid='11';
+-- Query 6
+SELECT proddescription FROM product WHERE proddescription like "%pad%" OR proddescription like "%Pad%";
+-- Query 7
+SELECT lastname, proddescription, purchasequantity FROM customer, product, purchases WHERE purchases.customerid=customer.customerid and purchases.productid=product.productid;
+-- Query 8
+SELECT SUM(purchasequantity) AS "Homer's Total Purchases" FROM purchases WHERE customerid in (SELECT customerid FROM customer WHERE firstname='Homer');
+-- Query 9
+SELECT firstname, lastname, SUM(purchasequantity) FROM customer, purchases WHERE purchases.customerid=customer.customerid GROUP BY lastname;
+-- Query 10
+SELECT proddescription, quantity FROM product WHERE productid NOT IN (SELECT productid FROM purchases);
+-- Query 11
+SELECT proddescription, quantity FROM product WHERE proddescription NOT IN (SELECT proddescription FROM product WHERE productid IN (SELECT productid FROM purchases WHERE customerid IN (SELECT customerid FROM customer WHERE firstname='Fred' AND lastname='Flintstone')));
+-- Query 12
+SELECT agent.firstname, agent.lastname, customer.firstname, customer.lastname FROM agent, customer WHERE agent.agentid=customer.agentid AND agent.city=customer.city;
+-- Query 13
+SELECT SUM(purchasequantity) AS 'Total Amount of Knee Pads Purchased' FROM purchases WHERE productid='78';
+-- Query 14
+SELECT proddescription FROM product WHERE productid IN (SELECT productid FROM purchases HAVING COUNT(productid)>3);
+-- Query 15
+SELECT firstname, lastname FROM agent WHERE agentid IN (SELECT agentid FROM customer WHERE customerid IN (SELECT customerid FROM purchases WHERE productid=78));
